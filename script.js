@@ -40,7 +40,7 @@ function leadingZero(time){
 }
 
 function runTimer(){
-    let currentTime = leadingZero(timer[0])+":"+leadingZero(timer[1])+":"+leadingZero(timer[2]);
+    let currentTime = leadingZero(timer[0])+":"+leadingZero(timer[1]);
     theTimer.innerHTML = currentTime;
     timer[3]++;
     timer[0] = Math.floor((timer[3]/100)/60); //convert millisecond to minute
@@ -51,8 +51,12 @@ function runTimer(){
 function onCardClicked(e){
     const target = e.currentTarget;
    
-    timeRunning = true;
-    interval = setInterval(runTimer, 10);
+    if(timeRunning !== true){
+        timeRunning = true;
+        interval = setInterval(runTimer, 10);
+    }
+   
+    
 
     if(preventClick || target === clickedCard || target.className.includes('done')){
         return;
@@ -84,6 +88,7 @@ function onCardClicked(e){
             if(combosFound === 8){
                 alert("Your record is : " + theTimer.textContent);
                 timeRunning = false;
+                document.location.reload();
                 clearInterval(interval);
                 
 
